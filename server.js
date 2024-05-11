@@ -1,9 +1,24 @@
-const express = require('express');
-const app = express();
+import { connectDB } from './db/mongoose.js';
+import express from 'express';
+import { addRoutes } from './routes/index.js';
+
+export const app = express();
 const port = 3000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+export const appStart = async () => {
+  try {
+    await connectDB();
 
-module.exports = { app };
+    app.use(express.json());
+
+    addRoutes(app);
+
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`);
+    });
+  } catch (e) {
+    console.error('app error', e.message);
+  }
+};
+
+appStart();
