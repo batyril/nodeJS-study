@@ -1,19 +1,31 @@
 import { connectDB } from './db/mongoose.js';
 import express from 'express';
-import { addRoutes } from './routes/index.js';
+import cors from 'cors';
+import moviesRouter from './routes/movies/index.js';
+import categoriesRouter from './routes/categories/index.js';
 
-export const app = express();
+export const server = express();
 const port = 3000;
+
+const allowedOrigins = [''];
 
 export const appStart = async () => {
   try {
     await connectDB();
 
-    app.use(express.json());
+    server.use(
+      cors({
+        origin: allowedOrigins,
+      })
+    );
 
-    addRoutes(app);
+    server.use(express.json());
 
-    app.listen(port, () => {
+    server.use('/movies', moviesRouter);
+
+    server.use('/categories', categoriesRouter);
+
+    server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
     });
   } catch (e) {
