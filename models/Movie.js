@@ -9,6 +9,12 @@ const MovieSchema = new mongoose.Schema({
   year: Number,
   duration: String,
   director: String,
+  comments: [
+    {
+      name: { type: String, required: true },
+      comment: { type: String, required: true },
+    },
+  ],
 });
 
 export const Movie = mongoose.model('movies', MovieSchema);
