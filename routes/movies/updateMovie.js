@@ -1,6 +1,5 @@
-import { Movie } from '../../models/Movie.js';
 import checkId from '../../validation /checkId.js';
-import getUpdatedFields from '../../validation /checkFileUpdate.js';
+import { updateMovieById } from '../../services/movie.js';
 
 export const updateMovie = async (request, response) => {
   try {
@@ -10,24 +9,17 @@ export const updateMovie = async (request, response) => {
       return response.status(400).send(`Неверный формат идентификатора: ${id}`);
     }
 
-    const fieldsToUpdate = getUpdatedFields(request.body);
+    const result = await updateMovieById(id, request.body);
 
-    const isCheckFields = Object.keys(fieldsToUpdate).length > 0;
-
-    if (isCheckFields) {
-      const result = await Movie.findByIdAndUpdate(id, fieldsToUpdate, {
-        new: true,
-      });
-
-      if (result) {
-        response.send(`Фильм изменен ${result}`);
-      } else {
-        response.send(`Не удалось найти фильм с id ${id}`);
-      }
+    if (result) {
+      response.send(`Фильм изменен ${result}`);
     } else {
-      response.send('Нет полей для обновления');
+      response.send(`Не удалось найти фильм с id ${id}`);
     }
-  } catch (e) {
-    return response.status(500).send(e.message);
+  } catch (error) {
+    if (error.message === 'Нет полей для обновления') {
+      return response.status(400).send(error.message);
+    }
+    return response.status(500).send(`Ошибка сервера: ${error.message}`);
   }
 };

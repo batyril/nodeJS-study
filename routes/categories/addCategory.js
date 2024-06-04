@@ -1,10 +1,9 @@
-import { Category } from '../../models/Category.js';
+import { createCategory } from '../../services/category.js';
 
 export const addCategory = async (request, response) => {
   try {
-    const { title } = request.body;
-    await Category.create({ title });
-    return response.status(201).send('categories created');
+    const category = await createCategory(request.body);
+    return response.status(201).send(`categories created ${category}`);
   } catch (e) {
     return response.status(500).send(e.message);
   }

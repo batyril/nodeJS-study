@@ -1,5 +1,5 @@
-import { Movie } from '../../models/Movie.js';
 import checkId from '../../validation /checkId.js';
+import { createComment } from '../../services/movie.js';
 
 export const addComment = async (request, response) => {
   try {
@@ -14,12 +14,7 @@ export const addComment = async (request, response) => {
       return response.status(400).send(`Неверный формат идентификатора: ${id}`);
     }
 
-    const filter = { $push: { comments: { name, comment } } };
-
-    const result = await Movie.findByIdAndUpdate(id, filter, {
-      new: true,
-    });
-
+    const result = await createComment(request.body, id);
     if (result) {
       return response.status(201).send(`комментарий добавлен ${result}`);
     } else {

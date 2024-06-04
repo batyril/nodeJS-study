@@ -1,11 +1,9 @@
-import { Movie } from '../../models/Movie.js';
+import { createMovie } from '../../services/movie.js';
 
 export const addMovie = async (request, response) => {
   try {
-    // TODO: добавить валидацию для значений
-    const { title, category, year, duration, director } = request.body;
-    await Movie.create({ title, category, year, duration, director });
-    return response.status(201).send(`создать фильм с ${request.params.id}`);
+    const movie = createMovie(request.body);
+    return response.status(201).send(`создать фильм с ${movie}`);
   } catch (e) {
     return response.status(500).send(e.message);
   }
