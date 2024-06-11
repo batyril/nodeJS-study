@@ -26,7 +26,19 @@ export const findByIdAndDelete = async (id) => {
 };
 
 export const findMovies = async () => {
-  return Movie.find();
+  const movies = Movie.find();
+  if (movies) {
+    return movies;
+  }
+  return 'фильмов еще нет';
+};
+
+export const findMovie = async (id) => {
+  const movies = await Movie.findById(id);
+  if (movies) {
+    return movies;
+  }
+  return 'Фильм с таким id не найден';
 };
 
 export const updateMovieById = async (id, body) => {
