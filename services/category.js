@@ -1,4 +1,5 @@
 import { Category } from '../models/Category.js';
+// TODO: вынести в отдельные файлы
 
 export const findCategories = async () => {
   return Category.find();

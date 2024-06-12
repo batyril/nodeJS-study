@@ -1,5 +1,5 @@
-import checkId from '../../validation /checkId.js';
-import { createComment } from '../../services/movie.js';
+import checkId from '../../../validation /checkId.js';
+import { createComment } from '../../../services/movie.js';
 
 export const addComment = async (request, response) => {
   try {
@@ -8,7 +8,7 @@ export const addComment = async (request, response) => {
       return response.status(400).send('name и comment обязателен');
     }
 
-    const id = request.params.id;
+    const id = request.params.movieId;
 
     if (checkId(id)) {
       return response.status(400).send(`Неверный формат идентификатора: ${id}`);
