@@ -9,7 +9,6 @@ export const createMovie = async ({
   duration,
   director,
 }) => {
-  // TODO: добавить валидацию для значений
   return Movie.create({ title, category, year, duration, director });
 };
 
@@ -35,7 +34,7 @@ export const findMovies = async () => {
 };
 
 export const findMovie = async (id) => {
-  return Movie.findById(id);
+  return Movie.findById(id).populate('category').populate('director');
 };
 
 export const updateMovieById = async (id, body) => {

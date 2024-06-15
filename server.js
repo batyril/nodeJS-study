@@ -6,7 +6,7 @@ import categoriesRouter from './routes/categories/index.js';
 import directorRouter from './routes/director/index.js';
 
 export const server = express();
-const port = 3000;
+const port = process.env.PORT;
 
 const allowedOrigins = [''];
 
