@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
 
 const MovieSchema = new mongoose.Schema({
-  title: String,
+  title: { type: String, required: true },
   category: {
     type: mongoose.ObjectId,
     ref: 'categories',
+    required: true,
   },
-  year: Number,
-  duration: String,
-  director: String,
+  year: { type: Number, required: true },
+  duration: { type: Number, required: true },
+  director: {
+    type: mongoose.ObjectId,
+    ref: 'director',
+    required: true,
+  },
   comments: [
     {
       name: { type: String, required: true },

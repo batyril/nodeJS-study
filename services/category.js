@@ -6,10 +6,7 @@ export const findCategories = async () => {
 };
 
 export const createCategory = async ({ title }) => {
-  if (title) {
-    return Category.create({ title });
-  }
-  throw new Error('Нет полей для обновления');
+  return Category.create({ title });
 };
 
 export const findByIdAndDelete = async (id) => {

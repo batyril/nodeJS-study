@@ -21,7 +21,7 @@ moviesRouter.get('/', getMovies);
 
 moviesRouter.get('/:movieId', getMovie);
 
-moviesRouter.post('/:movieId', addMovie);
+moviesRouter.post('/', addMovie);
 
 moviesRouter.put('/:movieId', updateMovie);
 
@@ -29,14 +29,15 @@ moviesRouter.delete('/:movieId', deleteMovie);
 
 // comment
 
+moviesRouter.get('/:movieId/comment/:commentId', getOneComment);
+
 moviesRouter.get('/:movieId/comment', getAllComments);
 
 moviesRouter.delete('/:movieId/comment', clearComments);
 
 moviesRouter.delete('/:movieId/comment/:commentId', deleteOneComment);
-moviesRouter.put('/:movieId/comment/:commentId', updateComment);
 
-moviesRouter.get('/:movieId/comment/:commentId', getOneComment);
+moviesRouter.put('/:movieId/comment/:commentId', updateComment);
 
 moviesRouter.post('/:movieId/comment', addComment);
 

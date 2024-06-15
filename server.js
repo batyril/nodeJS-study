@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import moviesRouter from './routes/movies/index.js';
 import categoriesRouter from './routes/categories/index.js';
+import directorRouter from './routes/director/index.js';
 
 export const server = express();
 const port = 3000;
@@ -24,6 +25,8 @@ export const appStart = async () => {
     server.use('/movies', moviesRouter);
 
     server.use('/categories', categoriesRouter);
+
+    server.use('/directors', directorRouter);
 
     server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
