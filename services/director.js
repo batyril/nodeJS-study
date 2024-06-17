@@ -1,4 +1,6 @@
 import { Director } from '../models/Director.js';
+// TODO: вынести в отдельные файлы
+// TODO: проверки должны быть на уровне мангуста
 
 export const findDirector = async (id) => {
   const director = await Director.findById(id);

@@ -1,5 +1,5 @@
-import checkId from '../../../validation /checkId.js';
-import { removeComment } from '../../../services/movie.js';
+import checkId from '../../validation /checkId.js';
+import { removeComment } from '../../services/movie.js';
 
 export const deleteOneComment = async (request, response) => {
   try {

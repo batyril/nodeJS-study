@@ -1,5 +1,5 @@
-import checkId from '../../../validation /checkId.js';
-import { updateCommentById } from '../../../services/movie.js';
+import checkId from '../../validation /checkId.js';
+import { updateCommentById } from '../../services/movie.js';
 
 export const updateComment = async (request, response) => {
   try {

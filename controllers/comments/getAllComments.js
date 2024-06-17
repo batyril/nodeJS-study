@@ -1,5 +1,5 @@
-import checkId from '../../../validation /checkId.js';
-import { findMovie } from '../../../services/movie.js';
+import checkId from '../../validation /checkId.js';
+import { findMovie } from '../../services/movie.js';
 
 export const getAllComments = async (request, response) => {
   try {

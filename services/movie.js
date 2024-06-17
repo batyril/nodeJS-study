@@ -1,6 +1,7 @@
 import { Movie } from '../models/Movie.js';
 import getUpdatedFields from '../validation /checkFileUpdate.js';
 // TODO: вынести в отдельные файлы
+// TODO: проверки должны быть на уровне мангуста
 
 export const createMovie = async ({
   title,
@@ -13,6 +14,7 @@ export const createMovie = async ({
 };
 
 export const createComment = async ({ name, comment }, id) => {
+  // TODO: add to set - проверка на дубли
   const filter = { $push: { comments: { name, comment } } };
   return Movie.findByIdAndUpdate(id, filter, {
     new: true,

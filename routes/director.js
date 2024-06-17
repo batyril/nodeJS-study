@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { getDirector } from './getDirector.js';
-import { addDirector } from './addDirector.js';
-import { deleteDirector } from './deleteDirector.js';
-import { updateDirector } from './updateDirector.js';
+import {
+  addDirector,
+  deleteDirector,
+  getDirector,
+  updateDirector,
+} from '../controllers/director/index.js';
 
 const directorRouter = Router();
 

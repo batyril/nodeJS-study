@@ -1,5 +1,6 @@
 import { Category } from '../models/Category.js';
 // TODO: вынести в отдельные файлы
+// TODO: проверки должны быть на уровне мангуста
 
 export const findCategories = async () => {
   return Category.find();

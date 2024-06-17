@@ -1,9 +1,10 @@
 import { connectDB } from './db/mongoose.js';
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import moviesRouter from './routes/movies/index.js';
-import categoriesRouter from './routes/categories/index.js';
-import directorRouter from './routes/director/index.js';
+import moviesRouter from './routes/./movies.js';
+import categoriesRouter from './routes/categories.js';
+import directorRouter from './routes/director.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -20,6 +21,7 @@ export const appStart = async () => {
       })
     );
 
+    // TODO: проверка на не валидный json
     server.use(express.json());
 
     server.use('/movies', moviesRouter);

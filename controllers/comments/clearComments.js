@@ -1,5 +1,5 @@
-import checkId from '../../../validation /checkId.js';
-import { findFilmAndClearComments } from '../../../services/movie.js';
+import checkId from '../../validation /checkId.js';
+import { findFilmAndClearComments } from '../../services/movie.js';
 
 export const clearComments = async (request, response) => {
   try {
