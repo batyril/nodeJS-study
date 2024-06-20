@@ -1,16 +1,9 @@
-import checkId from '../../validation/checkId.js';
 import { Request, Response } from 'express';
 import { findFilmAndClearComments } from '../../services/comment.js';
 
 export const clearComments = async (request: Request, response: Response) => {
   try {
-    const movieId = request.params.movieId;
-
-    if (checkId(movieId)) {
-      return response
-        .status(400)
-        .send(`Неверный формат идентификатора: ${movieId}`);
-    }
+    const { movieId } = request.params;
 
     const comments = await findFilmAndClearComments(movieId);
     if (comments) {

@@ -10,7 +10,6 @@ export const server = express();
 const port = process.env.PORT;
 
 const allowedOrigins = [''];
-//1234542342
 export const appStart = async () => {
   try {
     await connectDB();

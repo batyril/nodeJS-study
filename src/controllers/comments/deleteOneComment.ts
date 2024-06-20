@@ -1,4 +1,3 @@
-import checkId from '../../validation/checkId.js';
 import { Request, Response } from 'express';
 import { removeComment } from '../../services/comment.js';
 
@@ -8,9 +7,6 @@ export const deleteOneComment = async (
 ) => {
   try {
     const { movieId, commentId } = request.params;
-    if (checkId(movieId) || checkId(commentId)) {
-      return response.status(400).send('Неверный формат идентификатора');
-    }
 
     const result = await removeComment(movieId, commentId);
 

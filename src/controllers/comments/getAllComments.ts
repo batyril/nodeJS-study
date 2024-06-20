@@ -1,19 +1,16 @@
-import checkId from '../../validation/checkId.js';
 import { findMovie } from '../../services/movie.js';
 import { Request, Response } from 'express';
 import { IMovie } from '../../models/Movie.js';
 
 export const getAllComments = async (request: Request, response: Response) => {
   try {
-    const id = request.params.movieId;
-    if (checkId(id)) {
-      return response.status(400).send(`Неверный формат идентификатора: ${id}`);
-    }
-    const movie: IMovie | null = await findMovie(id);
+    const { movieId } = request.params;
+
+    const movie: IMovie | null = await findMovie(movieId);
     if (!movie) {
       return response
         .status(404)
-        .send(`Фильм с идентификатором ${id} не найден`);
+        .send(`Фильм с идентификатором ${movieId} не найден`);
     }
 
     const { comments } = movie;

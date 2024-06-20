@@ -1,21 +1,11 @@
 import { Request, Response } from 'express';
-import checkId from '../../validation/checkId.js';
 import { createComment } from '../../services/comment.js';
 
 export const addComment = async (request: Request, response: Response) => {
   try {
-    const { name, comment } = request.body;
-    if (!name || !comment) {
-      return response.status(400).send('name и comment обязателен');
-    }
+    const { movieId } = request.params;
 
-    const id = request.params.movieId;
-
-    if (checkId(id)) {
-      return response.status(400).send(`Неверный формат идентификатора: ${id}`);
-    }
-
-    const result = await createComment(request.body, id);
+    const result = await createComment(request.body, movieId);
     if (result) {
       return response.status(201).send(`комментарий добавлен ${result}`);
     } else {

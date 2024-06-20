@@ -1,14 +1,9 @@
 import { Request, Response } from 'express';
 import { updateCategoryById } from '../../services/category.js';
-import checkId from '../../validation/checkId.js';
 
 export const updateCategory = async (request: Request, response: Response) => {
   try {
-    const id = request.params.id;
-
-    if (checkId(id)) {
-      return response.status(400).send(`Неверный формат идентификатора: ${id}`);
-    }
+    const { id } = request.params;
 
     const result = await updateCategoryById(id, request.body);
 

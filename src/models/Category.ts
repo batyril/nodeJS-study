@@ -9,6 +9,6 @@ const CategoriesSchema = new Schema<ICategories>({
 });
 
 export const Category = mongoose.model<ICategories>(
-  'categories',
+  'Category',
   CategoriesSchema
 );

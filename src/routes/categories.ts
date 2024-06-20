@@ -6,17 +6,24 @@ import {
   getCategory,
   updateCategory,
 } from '../controllers/categories/index.js';
+import verifyRequiredFields from '../middlewares/verifyRequiredFields.js';
+import checkIds from '../middlewares/checkIds.js';
 
 const categoriesRouter = Router();
 
 categoriesRouter.get('/', getCategories);
 
-categoriesRouter.get('/:id', getCategory);
+categoriesRouter.get('/:id', checkIds(['id']), getCategory);
 
-categoriesRouter.post('/', addCategory);
+categoriesRouter.post('/', verifyRequiredFields(['title']), addCategory);
 
-categoriesRouter.put('/:id', updateCategory);
+categoriesRouter.put(
+  '/:id',
+  checkIds(['id']),
+  verifyRequiredFields(['title']),
+  updateCategory
+);
 
-categoriesRouter.delete('/:id', deleteCategory);
+categoriesRouter.delete('/:id', checkIds(['id']), deleteCategory);
 
 export default categoriesRouter;

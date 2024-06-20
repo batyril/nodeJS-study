@@ -7,10 +7,10 @@ export interface IComment {
 
 export interface IMovie extends Document {
   title: string;
-  category: ObjectId;
+  category?: ObjectId;
   year: number;
   duration: number;
-  director: ObjectId;
+  director?: ObjectId;
   comments: mongoose.Types.DocumentArray<IComment>;
 }
 
@@ -23,17 +23,15 @@ const MovieSchema = new Schema<IMovie>({
   title: { type: String, required: true },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'categories',
-    required: true,
+    ref: 'Category',
   },
   year: { type: Number, required: true },
   duration: { type: Number, required: true },
   director: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'director',
-    required: true,
+    ref: 'Director',
   },
   comments: [CommentSchema],
 });
 
-export const Movie = mongoose.model<IMovie>('movies', MovieSchema);
+export const Movie = mongoose.model<IMovie>('Movie', MovieSchema);

@@ -1,5 +1,4 @@
 import { IMovie, Movie } from '../models/Movie.js';
-// TODO: проверки должны быть на уровне мангуста
 
 export const createMovie = async ({
   title,

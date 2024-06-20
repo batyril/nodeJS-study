@@ -1,14 +1,9 @@
 import { Request, Response } from 'express';
-import checkId from '../../validation/checkId.js';
 import { findByIdAndDelete } from '../../services/category.js';
 
 export const deleteCategory = async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
-
-    if (checkId(id)) {
-      return response.status(400).send(`Неверный формат идентификатора: ${id}`);
-    }
 
     const category = await findByIdAndDelete(id);
     if (category) {

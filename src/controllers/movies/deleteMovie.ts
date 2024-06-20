@@ -1,20 +1,15 @@
 import { findByIdAndDeleteMovie } from '../../services/movie.js';
-import checkId from '../../validation/checkId.js';
 import { Request, Response } from 'express';
 
 export const deleteMovie = async (request: Request, response: Response) => {
   try {
-    const id = request.params.id;
+    const { movieId } = request.params;
 
-    if (checkId(id)) {
-      return response.status(400).send(`Неверный формат идентификатора: ${id}`);
-    }
-
-    const movie = await findByIdAndDeleteMovie(id);
+    const movie = await findByIdAndDeleteMovie(movieId);
     if (movie) {
       response.send(`Фильм удален ${movie}`);
     } else {
-      response.send(`Не удалось найти фильм с ${id}`);
+      response.send(`Не удалось найти фильм с ${movieId}`);
     }
   } catch (error) {
     if (error instanceof Error) {
