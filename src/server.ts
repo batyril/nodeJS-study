@@ -5,6 +5,7 @@ import cors from 'cors';
 import moviesRouter from './routes/movies.js';
 import categoriesRouter from './routes/categories.js';
 import directorRouter from './routes/director.js';
+import commentsRouter from './routes/comments.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -24,6 +25,8 @@ export const appStart = async () => {
     server.use(express.json());
 
     server.use('/movies', moviesRouter);
+
+    server.use('/movies', commentsRouter);
 
     server.use('/categories', categoriesRouter);
 
