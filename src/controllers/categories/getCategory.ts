@@ -1,11 +1,11 @@
-import { findCategory } from '../../services/category.js';
+import { findCategoryById } from '../../services/category.js';
 import { Request, Response } from 'express';
 
 export const getCategory = async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
 
-    const result = await findCategory(id);
+    const result = await findCategoryById(id);
     if (result) {
       response.status(200).send(result);
     } else {

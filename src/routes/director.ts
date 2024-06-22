@@ -5,25 +5,16 @@ import {
   getDirector,
   updateDirector,
 } from '../controllers/director/index.js';
-import verifyRequiredFields from '../middlewares/verifyRequiredFields.js';
 import checkIds from '../middlewares/checkIds.js';
+import { directorChain } from '../validators/index.js';
 
 const directorRouter = Router();
 
 directorRouter.get('/:id', checkIds(['id']), getDirector);
 
-directorRouter.post(
-  '/',
-  verifyRequiredFields(['birthDate', 'name']),
-  addDirector
-);
+directorRouter.post('/', directorChain(), addDirector);
 
-directorRouter.put(
-  '/:id',
-  checkIds(['id']),
-  verifyRequiredFields(['birthDate', 'name']),
-  updateDirector
-);
+directorRouter.put('/:id', checkIds(['id']), directorChain(), updateDirector);
 
 directorRouter.delete('/:id', checkIds(['id']), deleteDirector);
 

@@ -6,9 +6,8 @@ import {
   getMovies,
   updateMovie,
 } from '../controllers/movies/index.js';
-import verifyRequiredFields from '../middlewares/verifyRequiredFields.js';
 import checkIds from '../middlewares/checkIds.js';
-import verifyUpdateFields from '../middlewares/verifyUpdateFields.js';
+import { moviesChain } from '../validators/index.js';
 
 const moviesRouter = Router();
 
@@ -16,16 +15,12 @@ moviesRouter.get('/', getMovies);
 
 moviesRouter.get('/:movieId', getMovie);
 
-moviesRouter.post(
-  '/',
-  verifyRequiredFields(['title', 'year', 'duration']),
-  addMovie
-);
+moviesRouter.post('/', moviesChain(), addMovie);
 
 moviesRouter.put(
   '/:movieId',
   checkIds(['movieId']),
-  verifyUpdateFields,
+  moviesChain(),
   updateMovie
 );
 

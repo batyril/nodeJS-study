@@ -6,8 +6,9 @@ import {
   getCategory,
   updateCategory,
 } from '../controllers/categories/index.js';
-import verifyRequiredFields from '../middlewares/verifyRequiredFields.js';
 import checkIds from '../middlewares/checkIds.js';
+import { findCategoryByTitle } from '../services/category.js';
+import { categoryChain } from '../validators/index.js';
 
 const categoriesRouter = Router();
 
@@ -15,14 +16,18 @@ categoriesRouter.get('/', getCategories);
 
 categoriesRouter.get('/:id', checkIds(['id']), getCategory);
 
-categoriesRouter.post('/', verifyRequiredFields(['title']), addCategory);
-
-categoriesRouter.put(
-  '/:id',
-  checkIds(['id']),
-  verifyRequiredFields(['title']),
-  updateCategory
+categoriesRouter.post(
+  '/',
+  categoryChain().custom(async value => {
+    const category = await findCategoryByTitle(value);
+    if (category) {
+      throw new Error('category already in use');
+    }
+  }),
+  addCategory
 );
+
+categoriesRouter.put('/:id', checkIds(['id']), categoryChain(), updateCategory);
 
 categoriesRouter.delete('/:id', checkIds(['id']), deleteCategory);
 

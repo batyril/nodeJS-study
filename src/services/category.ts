@@ -14,8 +14,16 @@ export const findByIdAndDelete = async (id: string) => {
   });
 };
 
-export const findCategory = async (id: string): Promise<ICategories | null> => {
+export const findCategoryById = async (
+  id: string
+): Promise<ICategories | null> => {
   return Category.findById(id);
+};
+
+export const findCategoryByTitle = async (
+  title: string
+): Promise<ICategories | null> => {
+  return Category.findOne({ title });
 };
 
 export const updateCategoryById = async (

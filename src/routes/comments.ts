@@ -7,10 +7,19 @@ import {
   getOneComment,
   updateComment,
 } from '../controllers/comments/index.js';
-import verifyRequiredFields from '../middlewares/verifyRequiredFields.js';
 import checkIds from '../middlewares/checkIds.js';
+import { commentsChain } from '../validators/index.js';
 
 const commentsRouter = Router();
+
+commentsRouter.post('/:movieId/comment', commentsChain(), addComment);
+
+commentsRouter.put(
+  '/:movieId/comment/:commentId',
+  commentsChain(),
+  checkIds(['movieId', 'commentId']),
+  updateComment
+);
 
 commentsRouter.get(
   '/:movieId/comment/:commentId',
@@ -30,19 +39,6 @@ commentsRouter.delete(
   '/:movieId/comment/:commentId',
   checkIds(['movieId', 'commentId']),
   deleteOneComment
-);
-
-commentsRouter.put(
-  '/:movieId/comment/:commentId',
-  verifyRequiredFields(['comment', 'name']),
-  checkIds(['movieId', 'commentId']),
-  updateComment
-);
-
-commentsRouter.post(
-  '/:movieId/comment',
-  verifyRequiredFields(['comment', 'name']),
-  addComment
 );
 
 export default commentsRouter;
