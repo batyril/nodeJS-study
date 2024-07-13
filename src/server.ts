@@ -7,6 +7,7 @@ import categoriesRouter from './routes/categories.js';
 import directorRouter from './routes/director.js';
 import commentsRouter from './routes/comments.js';
 import { matchedData, query, validationResult } from 'express-validator';
+import { saveMovies } from './fs/index.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -46,6 +47,8 @@ export const appStart = async () => {
     server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
     });
+
+    await saveMovies();
   } catch (e) {
     if (e instanceof Error) {
       console.log(e.message);

@@ -27,7 +27,7 @@ export async function removeComment(movieId: string, commentId: string) {
       throw new Error('Movie not found.');
     }
 
-    const commentExists = movie.comments.some(comment => {
+    const commentExists = movie.comments.some((comment) => {
       return comment._id && comment._id.toString() === commentId;
     });
 

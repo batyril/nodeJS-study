@@ -1,5 +1,4 @@
 import { Director, IDirector } from '../models/Director.js';
-// TODO: проверки должны быть на уровне мангуста
 
 export const findDirector = async (id: string): Promise<IDirector | null> => {
   return Director.findById(id);

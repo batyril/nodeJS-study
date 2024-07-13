@@ -18,7 +18,7 @@ categoriesRouter.get('/:id', checkIds(['id']), getCategory);
 
 categoriesRouter.post(
   '/',
-  categoryChain().custom(async value => {
+  categoryChain().custom(async (value) => {
     const category = await findCategoryByTitle(value);
     if (category) {
       throw new Error('category already in use');
