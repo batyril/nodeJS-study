@@ -3,60 +3,70 @@
     "title": "Movie 1",
     "year": 2020,
     "duration": 120,
+    "director": "669d031ef99921be748c292c",
     "comments": []
   },
   {
     "title": "Movie 2",
-    "year": 2019,
+    "year": 2015,
     "duration": 115,
+    "director": "669d0304f99921be748c292a",
     "comments": []
   },
   {
     "title": "Movie 3",
-    "year": 2018,
+    "year": 2010,
     "duration": 130,
+    "director": "669d031ef99921be748c292c",
     "comments": []
   },
   {
     "title": "Movie 4",
-    "year": 2017,
+    "year": 2005,
     "duration": 110,
+    "director": "669d0304f99921be748c292a",
     "comments": []
   },
   {
     "title": "Movie 5",
-    "year": 2016,
+    "year": 2000,
     "duration": 105,
+    "director": "669d031ef99921be748c292c",
     "comments": []
   },
   {
     "title": "Movie 6",
-    "year": 2015,
+    "year": 1995,
     "duration": 140,
+    "director": "669d0304f99921be748c292a",
     "comments": []
   },
   {
     "title": "Movie 7",
-    "year": 2014,
+    "year": 1990,
     "duration": 125,
+    "director": "669d031ef99921be748c292c",
     "comments": []
   },
   {
     "title": "Movie 8",
-    "year": 2013,
+    "year": 1985,
     "duration": 135,
+    "director": "669d0304f99921be748c292a",
     "comments": []
   },
   {
     "title": "Movie 9",
-    "year": 2012,
+    "year": 1980,
     "duration": 100,
+    "director": "669d031ef99921be748c292c",
     "comments": []
   },
   {
     "title": "Movie 10",
-    "year": 2011,
+    "year": 1975,
     "duration": 145,
+    "director": "669d0304f99921be748c292a",
     "comments": []
   }
 ]

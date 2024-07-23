@@ -1,5 +1,26 @@
 import { IMovie, Movie } from '../models/Movie.js';
 
+export const findDirectorFilmCount = async () => {
+  return Movie.aggregate([
+    { $group: { _id: '$director', count: { $sum: 1 } } },
+    {
+      $project: {
+        _id: 0,
+        director: '$_id',
+        count: 1,
+      },
+    },
+  ]).exec();
+};
+
+export const findFilmPerInterval = async (max: number, min: number) => {
+  return Movie.aggregate([
+    {
+      $match: { year: { $gt: min, $lt: max } },
+    },
+  ]).exec();
+};
+
 export const createMovie = async ({
   title,
   category,

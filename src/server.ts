@@ -6,8 +6,8 @@ import moviesRouter from './routes/movies.js';
 import categoriesRouter from './routes/categories.js';
 import directorRouter from './routes/director.js';
 import commentsRouter from './routes/comments.js';
-import { matchedData, query, validationResult } from 'express-validator';
 import { saveMovies } from './fs/index.js';
+import aggregatesRouter from './routes/aggregates.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -26,16 +26,6 @@ export const appStart = async () => {
     // TODO: проверка на не валидный json
     server.use(express.json());
 
-    server.get('/hello', query('person').notEmpty().escape(), (req, res) => {
-      const result = validationResult(req);
-      if (result.isEmpty() && req.query) {
-        const data = matchedData(req);
-        return res.send(`Hello, ${data.person}!`);
-      }
-
-      res.send({ errors: result.array() });
-    });
-
     server.use('/movies', moviesRouter);
 
     server.use('/movies', commentsRouter);
@@ -43,6 +33,8 @@ export const appStart = async () => {
     server.use('/categories', categoriesRouter);
 
     server.use('/directors', directorRouter);
+
+    server.use('/aggregates', aggregatesRouter);
 
     server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);

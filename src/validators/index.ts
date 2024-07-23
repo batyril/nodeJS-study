@@ -1,6 +1,17 @@
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 
 export const categoryChain = () => body('title').isString().trim().notEmpty();
+
+export const yearChain = () => [
+  query('max')
+    .isNumeric()
+    .withMessage('параметр max должно быть числовым ')
+    .notEmpty(),
+  query('min')
+    .isNumeric()
+    .withMessage('параметр min должно быть числовым ')
+    .notEmpty(),
+];
 
 export const commentsChain = () => [
   body('name').isString().trim().notEmpty(),
