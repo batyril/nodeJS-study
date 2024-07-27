@@ -1,7 +1,25 @@
 import { Category, ICategories } from '../models/Category.js';
 
-export const findCategories = async (): Promise<ICategories[] | null> => {
-  return Category.find();
+export const findCategories = async (
+  filters: Partial<ICategories>,
+  sortField: string,
+  sortOrder: 'asc' | 'desc'
+): Promise<ICategories[] | null> => {
+  const query = Category.find();
+
+  if (filters.id) {
+    query.where('_id', filters.id);
+  }
+
+  if (filters.title) {
+    query.where('_id', filters.title);
+  }
+
+  if (sortField) {
+    const sort = { [sortField]: sortOrder };
+    query.sort(sort);
+  }
+  return query.exec();
 };
 
 export const createCategory = async ({ title }: ICategories) => {

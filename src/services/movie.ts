@@ -39,8 +39,37 @@ export const findByIdAndDeleteMovie = async (
   });
 };
 
-export const findMovies = async (): Promise<IMovie[] | null> => {
-  return Movie.find();
+//TODO: типипзировать   sortField: keyof IMovie,
+export const findMovies = async (
+  filters: Partial<IMovie>,
+  sortField: string,
+  sortOrder: 'asc' | 'desc'
+): Promise<IMovie[] | null> => {
+  const query = Movie.find();
+
+  if (filters.title) {
+    query.where('title', filters.title);
+  }
+
+  if (filters.year) {
+    query.where('year', filters.year);
+  }
+  if (filters.id) {
+    query.where('_id', filters.id);
+  }
+
+  if (filters.duration) {
+    query.where('duration', filters.duration);
+  }
+  if (filters.director) {
+    query.where('duration', filters.director);
+  }
+
+  if (sortField) {
+    const sort = { [sortField]: sortOrder };
+    query.sort(sort);
+  }
+  return query.exec();
 };
 
 export const findMovie = async (id: string): Promise<IMovie | null> => {
