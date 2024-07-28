@@ -1,5 +1,6 @@
 import { findByIdAndDeleteMovie } from '../../services/movie.js';
 import { Request, Response } from 'express';
+import { deleteMoviesCache } from '../../services/cache.js';
 
 export const deleteMovie = async (request: Request, response: Response) => {
   try {
@@ -7,6 +8,7 @@ export const deleteMovie = async (request: Request, response: Response) => {
 
     const movie = await findByIdAndDeleteMovie(movieId);
     if (movie) {
+      deleteMoviesCache();
       response.send(`Фильм удален ${movie}`);
     } else {
       response.send(`Не удалось найти фильм с ${movieId}`);

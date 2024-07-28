@@ -2,6 +2,7 @@ import { updateMovieById } from '../../services/movie.js';
 import { Request, Response } from 'express';
 import { matchedData, validationResult } from 'express-validator';
 import { IMovie } from '../../models/Movie.js';
+import { deleteMoviesCache } from '../../services/cache.js';
 
 export const updateMovie = async (request: Request, response: Response) => {
   try {
@@ -18,6 +19,7 @@ export const updateMovie = async (request: Request, response: Response) => {
     const result = await updateMovieById(movieId, data);
 
     if (result) {
+      deleteMoviesCache();
       response.send(`Фильм изменен ${result}`);
     } else {
       response.send(`Не удалось найти фильм с id ${movieId}`);

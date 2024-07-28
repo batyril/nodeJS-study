@@ -2,6 +2,7 @@ import { createMovie } from '../../services/movie.js';
 import { Request, Response } from 'express';
 import { matchedData, validationResult } from 'express-validator';
 import { IMovie } from '../../models/Movie.js';
+import { deleteMoviesCache } from '../../services/cache.js';
 
 export const addMovie = async (request: Request, response: Response) => {
   try {
@@ -13,8 +14,14 @@ export const addMovie = async (request: Request, response: Response) => {
 
     const data = matchedData<IMovie>(request);
 
-    const movie = await createMovie(data);
-    return response.status(201).send(`создан фильм с ${movie}`);
+    const result = await createMovie(data);
+
+    if (result) {
+      deleteMoviesCache();
+      response.status(201).send(`создан фильм  ${result}`);
+    } else {
+      response.send(`Не удалось добавить фильм`);
+    }
   } catch (error) {
     if (error instanceof Error) {
       return response.status(500).send(`Ошибка сервера: ${error.message}`);
