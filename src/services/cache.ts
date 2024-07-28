@@ -14,14 +14,14 @@ export const setMoviesCache = (value: IMovie[] | null) => {
   }
 };
 
+export const hasMoviesCache = () => {
+  return moviesCache.has('movies');
+};
+
 export const getMoviesCache = () => {
   return moviesCache.get('movies');
 };
 
 export const deleteMoviesCache = () => {
-  const result = moviesCache.del('movies');
-  if (!result) {
-    console.error('Ошибка при удалении с кэша');
-  }
-  return result;
+  return moviesCache.del('movies');
 };

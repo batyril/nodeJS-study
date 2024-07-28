@@ -1,7 +1,11 @@
 import { findMovies } from '../../services/movie.js';
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { getMoviesCache, setMoviesCache } from '../../services/cache.js';
+import {
+  getMoviesCache,
+  hasMoviesCache,
+  setMoviesCache,
+} from '../../services/cache.js';
 
 export const getMovies = async (request: Request, response: Response) => {
   try {
@@ -15,10 +19,10 @@ export const getMovies = async (request: Request, response: Response) => {
 
     const isSortOrder = sortOrder === 'desc' ? 'desc' : 'asc';
 
-    const isCache = getMoviesCache();
+    const isCache = hasMoviesCache();
 
     if (isCache) {
-      response.send(isCache);
+      response.send(getMoviesCache());
       return;
     }
 
