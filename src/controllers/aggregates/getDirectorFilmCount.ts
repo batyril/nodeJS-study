@@ -1,11 +1,8 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { findDirectorFilmCount } from '../../services/movie.js';
 import { findDirector } from '../../services/director.js';
 
-export const getDirectorFilmCount = async (
-  request: Request,
-  response: Response
-) => {
+export const getDirectorFilmCount = async (response: Response) => {
   try {
     const countFilms = await findDirectorFilmCount();
 

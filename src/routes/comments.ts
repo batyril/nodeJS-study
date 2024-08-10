@@ -9,14 +9,21 @@ import {
 } from '../controllers/comments/index.js';
 import checkIds from '../middlewares/checkIds.js';
 import { commentsChain } from '../validators/index.js';
+import checkValidationErrors from '../middlewares/checkValidationErrors.js';
 
 const commentsRouter = Router();
 
-commentsRouter.post('/:movieId/comment', commentsChain(), addComment);
+commentsRouter.post(
+  '/:movieId/comment',
+  commentsChain(),
+  checkValidationErrors(),
+  addComment
+);
 
 commentsRouter.put(
   '/:movieId/comment/:commentId',
   commentsChain(),
+  checkValidationErrors(),
   checkIds(['movieId', 'commentId']),
   updateComment
 );

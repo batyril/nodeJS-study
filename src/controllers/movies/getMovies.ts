@@ -1,6 +1,5 @@
 import { findMovies } from '../../services/movie.js';
 import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
 import {
   getMoviesCache,
   hasMoviesCache,
@@ -9,15 +8,9 @@ import {
 
 export const getMovies = async (request: Request, response: Response) => {
   try {
-    const errors = validationResult(request);
-
-    if (!errors.isEmpty()) {
-      return response.status(400).json({ errors: errors.array() });
-    }
-
     const { sort, sortOrder } = request.query;
-
-    const isSortOrder = sortOrder === 'desc' ? 'desc' : 'asc';
+    const sortOrderValue =
+      sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : undefined;
 
     const isCache = hasMoviesCache();
 
@@ -26,7 +19,11 @@ export const getMovies = async (request: Request, response: Response) => {
       return;
     }
 
-    const movies = await findMovies(request.query, String(sort), isSortOrder);
+    const movies = await findMovies(
+      request.query,
+      String(sort),
+      sortOrderValue
+    );
     setMoviesCache(movies);
     response.send(movies);
   } catch (error) {

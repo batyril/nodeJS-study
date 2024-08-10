@@ -7,17 +7,19 @@ import {
 } from '../controllers/movies/index.js';
 import checkIds from '../middlewares/checkIds.js';
 import { moviesChain, moviesFiltersChain } from '../validators/index.js';
+import checkValidationErrors from '../middlewares/checkValidationErrors.js';
 
 const moviesRouter = Router();
 
-moviesRouter.get('/', moviesFiltersChain(), getMovies);
+moviesRouter.get('/', moviesFiltersChain(), checkValidationErrors(), getMovies);
 
-moviesRouter.post('/', moviesChain(), addMovie);
+moviesRouter.post('/', moviesChain(), checkValidationErrors(), addMovie);
 
 moviesRouter.put(
   '/:movieId',
   checkIds(['movieId']),
   moviesChain(),
+  checkValidationErrors(),
   updateMovie
 );
 

@@ -8,10 +8,16 @@ import {
 import checkIds from '../middlewares/checkIds.js';
 import { findCategoryByTitle } from '../services/category.js';
 import { categoryChain, categoryFiltersChain } from '../validators/index.js';
+import checkValidationErrors from '../middlewares/checkValidationErrors.js';
 
 const categoriesRouter = Router();
 
-categoriesRouter.get('/', categoryFiltersChain(), getCategories);
+categoriesRouter.get(
+  '/',
+  categoryFiltersChain(),
+  checkValidationErrors(),
+  getCategories
+);
 
 categoriesRouter.post(
   '/',
@@ -21,10 +27,17 @@ categoriesRouter.post(
       throw new Error('category already in use');
     }
   }),
+  checkValidationErrors(),
   addCategory
 );
 
-categoriesRouter.put('/:id', checkIds(['id']), categoryChain(), updateCategory);
+categoriesRouter.put(
+  '/:id',
+  checkIds(['id']),
+  categoryChain(),
+  checkValidationErrors(),
+  updateCategory
+);
 
 categoriesRouter.delete('/:id', checkIds(['id']), deleteCategory);
 

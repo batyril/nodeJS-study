@@ -43,7 +43,7 @@ export const findByIdAndDeleteMovie = async (
 export const findMovies = async (
   filters: Partial<IMovie>,
   sortField: string,
-  sortOrder: 'asc' | 'desc'
+  sortOrder: 'asc' | 'desc' | undefined
 ): Promise<IMovie[] | null> => {
   const query = Movie.find();
 
@@ -65,7 +65,7 @@ export const findMovies = async (
     query.where('duration', filters.director);
   }
 
-  if (sortField) {
+  if (sortField && sortOrder) {
     const sort = { [sortField]: sortOrder };
     query.sort(sort);
   }

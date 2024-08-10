@@ -6,8 +6,8 @@ import moviesRouter from './routes/movies.js';
 import categoriesRouter from './routes/categories.js';
 import directorRouter from './routes/director.js';
 import commentsRouter from './routes/comments.js';
-import { saveMovies } from './fs/index.js';
 import aggregatesRouter from './routes/aggregates.js';
+import { addToDB } from './services/files.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -40,7 +40,7 @@ export const appStart = async () => {
       console.log(`Example app listening on port ${port}`);
     });
 
-    await saveMovies();
+    await addToDB();
   } catch (e) {
     if (e instanceof Error) {
       console.log(e.message);

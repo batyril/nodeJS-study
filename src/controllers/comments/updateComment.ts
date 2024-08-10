@@ -1,17 +1,11 @@
 import { Request, Response } from 'express';
 import { updateCommentById } from '../../services/comment.js';
-import { matchedData, validationResult } from 'express-validator';
+import { matchedData } from 'express-validator';
 import { IComment } from '../../models/Movie.js';
 
 export const updateComment = async (request: Request, response: Response) => {
   try {
     const { movieId, commentId } = request.params;
-
-    const errors = validationResult(request);
-
-    if (!errors.isEmpty()) {
-      return response.status(400).json({ errors: errors.array() });
-    }
 
     const data = matchedData<IComment>(request);
 

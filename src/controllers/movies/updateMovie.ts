@@ -1,18 +1,12 @@
 import { updateMovieById } from '../../services/movie.js';
 import { Request, Response } from 'express';
-import { matchedData, validationResult } from 'express-validator';
+import { matchedData } from 'express-validator';
 import { IMovie } from '../../models/Movie.js';
 import { deleteMoviesCache } from '../../services/cache.js';
 
 export const updateMovie = async (request: Request, response: Response) => {
   try {
     const { movieId } = request.params;
-
-    const errors = validationResult(request);
-
-    if (!errors.isEmpty()) {
-      return response.status(400).json({ errors: errors.array() });
-    }
 
     const data = matchedData<IMovie>(request);
 
