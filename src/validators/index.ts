@@ -55,6 +55,11 @@ export const directorChain = () => [
   body('birthDate').isString().trim().notEmpty(),
 ];
 
+export const userChain = () => [
+  body('email').isEmail().trim().notEmpty(),
+  body('password').isString().trim().notEmpty(),
+];
+
 export const moviesFiltersChain = () => [
   query('title')
     .isString()

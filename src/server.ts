@@ -8,6 +8,7 @@ import directorRouter from './routes/director.js';
 import commentsRouter from './routes/comments.js';
 import aggregatesRouter from './routes/aggregates.js';
 import { addToDB } from './services/files.js';
+import userRouter from './routes/user.js';
 
 export const server = express();
 const port = process.env.PORT;
@@ -35,6 +36,8 @@ export const appStart = async () => {
     server.use('/directors', directorRouter);
 
     server.use('/aggregates', aggregatesRouter);
+
+    server.use('/users', userRouter);
 
     server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
