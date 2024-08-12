@@ -10,7 +10,7 @@ export const addUser = async (request: Request, response: Response) => {
     const result = await createUser(data);
 
     if (result) {
-      response.status(201).send(`пользователь создан ${result}`);
+      response.status(201).send(`пользователь создан `);
     } else {
       response.send(`Не удалось создать пользователя`);
     }

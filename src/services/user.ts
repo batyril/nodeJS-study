@@ -1,4 +1,6 @@
 import { IUser, User } from '../models/User.js';
+import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '../utils/getJwtSecret.js';
 
 export const findUser = async ({
   email,
@@ -16,7 +18,9 @@ export const createUser = async ({
     throw new Error('Email already exists');
   }
 
-  return User.create({ email, roles, password });
+  const token = jwt.sign({ email, password }, getJwtSecret());
+
+  return User.create({ email, roles, token });
 };
 
 export const getUserData = async ({
@@ -28,7 +32,9 @@ export const getUserData = async ({
     throw new Error('Email already exists');
   }
 
-  if (isUser.password !== password) {
+  const decoded = jwt.verify(isUser.token, getJwtSecret()) as IUser;
+
+  if (decoded?.password !== password) {
     throw new Error('incorrect email or password');
   }
 

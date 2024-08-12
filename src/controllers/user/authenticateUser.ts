@@ -13,8 +13,7 @@ export const authenticateUser = async (
     const result = await getUserData(data);
 
     if (result) {
-      const credentials = `${result.email}:${result.password}`;
-      response.setHeader('Authorization', credentials);
+      response.cookie('sameSite', result.token);
       response.status(201).send(`authentication has passed`);
     } else {
       response.send(`Не удалось создать пользователя`);
