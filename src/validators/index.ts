@@ -62,10 +62,6 @@ export const userChain = () => [
 
 export const emailChain = () => [body('email').isEmail().trim().notEmpty()];
 
-export const tokenChain = () => [
-  query('token').notEmpty().withMessage('Поле не может быть пустым').isJWT(),
-];
-
 export const moviesFiltersChain = () => [
   query('title')
     .isString()
