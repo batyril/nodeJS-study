@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 
+//TODO: заменить на express validator
 const checkIds = (paramNames: string[]) => {
   return (request: Request, response: Response, next: NextFunction) => {
     for (const paramName of paramNames) {

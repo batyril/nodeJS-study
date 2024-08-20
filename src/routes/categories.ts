@@ -9,11 +9,15 @@ import checkIds from '../middlewares/checkIds.js';
 import { findCategoryByTitle } from '../services/category.js';
 import { categoryChain, categoryFiltersChain } from '../validators/index.js';
 import checkValidationErrors from '../middlewares/checkValidationErrors.js';
+import checkAuth from '../middlewares/checkAuth.js';
+import checkRoles from '../middlewares/checkRoles.js';
 
 const categoriesRouter = Router();
 
 categoriesRouter.get(
   '/',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
   categoryFiltersChain(),
   checkValidationErrors(),
   getCategories
@@ -21,6 +25,8 @@ categoriesRouter.get(
 
 categoriesRouter.post(
   '/',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
   categoryChain().custom(async (value) => {
     const category = await findCategoryByTitle(value);
     if (category) {
@@ -33,12 +39,20 @@ categoriesRouter.post(
 
 categoriesRouter.put(
   '/:id',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
   checkIds(['id']),
   categoryChain(),
   checkValidationErrors(),
   updateCategory
 );
 
-categoriesRouter.delete('/:id', checkIds(['id']), deleteCategory);
+categoriesRouter.delete(
+  '/:id',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
+  checkIds(['id']),
+  deleteCategory
+);
 
 export default categoriesRouter;

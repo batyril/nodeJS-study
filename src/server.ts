@@ -37,7 +37,7 @@ export const appStart = async () => {
 
     server.use('/aggregates', aggregatesRouter);
 
-    server.use('/users', userRouter);
+    server.use('/user', userRouter);
 
     server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);

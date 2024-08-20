@@ -8,17 +8,37 @@ import {
 import checkIds from '../middlewares/checkIds.js';
 import { moviesChain, moviesFiltersChain } from '../validators/index.js';
 import checkValidationErrors from '../middlewares/checkValidationErrors.js';
+import checkRoles from '../middlewares/checkRoles.js';
+import checkAuth from '../middlewares/checkAuth.js';
 
 const moviesRouter = Router();
 
-moviesRouter.get('/', moviesFiltersChain(), checkValidationErrors(), getMovies);
+//TODO: сделать получение фильмов только по названию и ограничить время
 
-moviesRouter.post('/', moviesChain(), checkValidationErrors(), addMovie);
+moviesRouter.get(
+  '/',
+  moviesFiltersChain(),
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
+  checkValidationErrors(),
+  getMovies
+);
+
+moviesRouter.post(
+  '/',
+  moviesChain(),
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
+  checkValidationErrors(),
+  addMovie
+);
 
 moviesRouter.put(
   '/:movieId',
   checkIds(['movieId']),
   moviesChain(),
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
   checkValidationErrors(),
   updateMovie
 );

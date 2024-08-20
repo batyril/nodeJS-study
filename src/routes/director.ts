@@ -8,15 +8,32 @@ import {
 import checkIds from '../middlewares/checkIds.js';
 import { directorChain } from '../validators/index.js';
 import checkValidationErrors from '../middlewares/checkValidationErrors.js';
+import checkAuth from '../middlewares/checkAuth.js';
+import checkRoles from '../middlewares/checkRoles.js';
 
 const directorRouter = Router();
 
-directorRouter.get('/:id', checkIds(['id']), getDirector);
+directorRouter.get(
+  '/:id',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
+  checkIds(['id']),
+  getDirector
+);
 
-directorRouter.post('/', directorChain(), checkValidationErrors(), addDirector);
+directorRouter.post(
+  '/',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
+  directorChain(),
+  checkValidationErrors(),
+  addDirector
+);
 
 directorRouter.put(
   '/:id',
+  checkAuth(),
+  checkRoles(['ADMIN', 'MODERATOR']),
   checkIds(['id']),
   directorChain(),
   checkValidationErrors(),

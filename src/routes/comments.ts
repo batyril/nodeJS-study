@@ -11,6 +11,8 @@ import checkIds from '../middlewares/checkIds.js';
 import { commentsChain } from '../validators/index.js';
 import checkValidationErrors from '../middlewares/checkValidationErrors.js';
 
+//TODO: возможность использования только по ролям
+
 const commentsRouter = Router();
 
 commentsRouter.post(
