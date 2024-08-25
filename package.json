@@ -48,6 +48,7 @@
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "migrate-mongo": "^11.0.0",
     "mongoose": "^8.3.4",
     "node-cache": "^5.1.2",
     "passport": "^0.7.0"
