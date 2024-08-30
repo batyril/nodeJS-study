@@ -3,7 +3,7 @@ import { IMovie } from '../models/Movie.js';
 
 const moviesCache = new NodeCache();
 
-export const setMoviesCache = (value: IMovie[] | null) => {
+export const setMoviesCache = (value: IMovie[] | null | unknown) => {
   const tenMinutes = 600000;
   const success = moviesCache.set('movies', value, tenMinutes);
 
