@@ -1,5 +1,16 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+    // Используйте ESNext для поддержки ESM
+    "esModuleInterop": true,
+    // Для совместимости с CommonJS модулями
+    "moduleResolution": "node",
+    // Разрешение модулей в стиле Node.js
+    "skipLibCheck": true,
+    // Пропускаем проверку типов библиотек
+    "target": "ES2020",
+    // Указываем целевую версию ECMAScript
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist"
   },
   "extends": "@tsconfig/node20/tsconfig.json",

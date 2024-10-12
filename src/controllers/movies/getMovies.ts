@@ -14,7 +14,7 @@ export const getMovies = async (request: Request, response: Response) => {
 
     const isCache = hasMoviesCache();
 
-    if (isCache) {
+    if (isCache && !request.query) {
       response.send(getMoviesCache());
       return;
     }
@@ -34,15 +34,17 @@ export const getMovies = async (request: Request, response: Response) => {
     );
 
     const result = await Promise.race([moviesPromise, checkTimeOut]);
-
     setMoviesCache(result);
 
-    response.send(result);
+    response.status(200).send(result);
   } catch (error) {
     if (error instanceof Error) {
+      if (error.message === 'not found') {
+        return response.status(404).send(error);
+      } else if (error.message === 'timeout error') {
+        return response.status(504).send(error);
+      }
       return response.status(500).send(`Ошибка сервера: ${error.message}`);
-    } else if (error === 'timeout error') {
-      return response.status(504).send(error);
     } else if (typeof error === 'string') {
       return response.status(500).send(error);
     }

@@ -13,3 +13,7 @@ export const connectDB = async () => {
     }
   }
 };
+
+export const disconnectDB = async () => {
+  await mongoose.connection.close();
+};

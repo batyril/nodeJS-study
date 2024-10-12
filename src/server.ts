@@ -39,11 +39,13 @@ export const appStart = async () => {
 
     server.use('/user', userRouter);
 
-    server.listen(port, () => {
+    const serverInstance = server.listen(port, () => {
       console.log(`Example app listening on port ${port}`);
     });
 
     await addToDB();
+
+    return serverInstance;
   } catch (e) {
     if (e instanceof Error) {
       console.log(e.message);
@@ -52,5 +54,3 @@ export const appStart = async () => {
     }
   }
 };
-
-appStart();

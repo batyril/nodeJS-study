@@ -17,9 +17,9 @@ const moviesRouter = Router();
 
 moviesRouter.get(
   '/',
-  moviesFiltersChain(),
   checkAuth(),
   checkRoles(['ADMIN', 'MODERATOR']),
+  moviesFiltersChain(),
   checkValidationErrors(),
   getMovies
 );

@@ -4,5 +4,5 @@
   ],
   "ext": ".js,.ts",
   "ignore": [],
-  "exec": "tsc && node dist/server.js"
+  "exec": "tsc && node dist/startServer.js"
 }

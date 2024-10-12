@@ -46,7 +46,6 @@ export const findMovies = async (
   sortOrder: 'asc' | 'desc' | undefined
 ): Promise<IMovie[] | null> => {
   const query = Movie.find();
-
   if (filters.title) {
     query.where('title', filters.title);
   }
@@ -62,14 +61,20 @@ export const findMovies = async (
     query.where('duration', filters.duration);
   }
   if (filters.director) {
-    query.where('duration', filters.director);
+    query.where('director', filters.director);
   }
 
   if (sortField && sortOrder) {
     const sort = { [sortField]: sortOrder };
     query.sort(sort);
   }
-  return query.exec();
+
+  const movies = await query.exec();
+
+  if (movies.length === 0) {
+    throw new Error('not found');
+  }
+  return movies;
 };
 
 export const findMovie = async (id: string): Promise<IMovie | null> => {
